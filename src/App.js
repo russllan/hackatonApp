@@ -1,12 +1,26 @@
-import './App.css';
-import HomePage from './pages/home';
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+
+import HomePage from "./pages/home";
+
+import PublicRout from "./routes/PublicRout";
+import PrivateRout from "./routes/PrivateRoute";
 
 const App = () => {
   return (
-    <div className="App">
-      <HomePage />
-    </div>
+    <>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            // <PublicRout>
+              <HomePage />
+            // </PublicRout>
+          }
+        />
+      </Routes>
+    </>
   );
-}
+};
 
 export default App;
