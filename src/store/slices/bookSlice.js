@@ -15,6 +15,7 @@ export const getTypeOperation = createAsyncThunk("operation", async () => {
 
 export const postBook = createAsyncThunk("book", async (data) => {
   const res = await Api.postBook(data);
+  console.log(res.data);
   return res.data;
 });
 
