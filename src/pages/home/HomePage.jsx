@@ -1,38 +1,33 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./HomePage.module.css";
 
-import Api from "../../api/Api";
-
-import Option from "../../components/UI/option/Option";
-import { FaSortDown } from "react-icons/fa6";
-
-import { getFilial, postBook } from "../../store/slices/bookSlice";
+import { getFilial, getTypeOperation, postBook } from "../../store/slices/bookSlice";
 import { useDispatch, useSelector } from "react-redux";
+
+import Select from "../../components/UI/select/Select";
 
 const HomePage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getFilial());
+    dispatch(getTypeOperation());
   }, []);
 
-  const [active, setActive] = useState(false);
   const [value, setValue] = useState(null);
-
-  const onClick = () => {
-    setActive(!active);
-  };
+  const [valueOperation, setValueOperation] = useState(null);
 
   const onSubmit = () => {
     const data = {
       filial_id: value.id,
       registerDate: "",
       operation_type: 0,
-    }
+    };
     dispatch(postBook(data));
   };
 
   const { result } = useSelector((state) => state.book.filial);
+  const resultOperation = useSelector((state) => state.book.typeOperation.result);
 
   return (
     <div className={styles.home}>
@@ -44,26 +39,8 @@ const HomePage = () => {
       </div>
       <div className={styles.form}>
         <div className={styles.wrapperForm}>
-          <div className={styles.select} onClick={onClick}>
-            <div className={styles.title}>{value == null ? "Выберите филиал" : value.address}</div>
-            <div>
-              <FaSortDown
-                className={active ? styles.arrowDown : styles.arrow}
-              />
-            </div>
-          </div>
-          <div className={styles.listFilial}>
-            {active
-              ? result?.map((item) => (
-                  <Option
-                    key={item}
-                    item={item}
-                    setValue={setValue}
-                    setActive={setActive}
-                  />
-                ))
-              : null}
-          </div>
+          <div className={styles.select}><Select result={result} value={value} setValue={setValue} text={"Выберите филиал"} /></div>
+          <div className={styles.select}><Select result={resultOperation} value={valueOperation} setValue={setValueOperation} text={"Выберите операцию"}/></div>
           <div style={{ marginTop: "360px", position: "absolute" }}>
             <button className={styles.btn}>Далее</button>
           </div>

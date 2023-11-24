@@ -9,6 +9,7 @@ export const getFilial = createAsyncThunk("filial", async () => {
 
 export const getTypeOperation = createAsyncThunk("operation", async () => {
   const res = await Api.getTypeOperation();
+  console.log(res.data);
   return res.data;
 });
 

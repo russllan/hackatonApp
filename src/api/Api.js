@@ -8,7 +8,7 @@ const http = axios.create({
 
 export const Api = {
     getFilial: () => http.get('filial/'),
-    getTypeOperation: () => http.get('cars'),
+    getTypeOperation: () => http.get('operation-list/'),
     postBook: (data) => http.post("houses", data),
 }
 

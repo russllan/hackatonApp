@@ -11,7 +11,7 @@ const Option = ({ item, setValue, setActive }) => {
   return (
     <div className={styles.Option} onClick={() => selectItem(item)}>
       <div className={styles.wrapper}>
-        <div>{item.address}</div>
+        <div>{item.address || item.name}</div>
       </div>
     </div>
   );
