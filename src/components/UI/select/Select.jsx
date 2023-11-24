@@ -5,7 +5,9 @@ import { FaSortDown } from "react-icons/fa6";
 import Option from "../option/Option";
 
 const Select = ({ result, value, setValue, text }) => {
+  
     const [active, setActive] = useState(false);
+    
   return (
     <>
       <div className={styles.select} onClick={() => setActive(!active)}>
