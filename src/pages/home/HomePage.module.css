@@ -1,0 +1,67 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.home {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  /* background-image: url("https://images.unsplash.com/photo-1618442916066-c18b8a8aec4f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTM5fHxiYW5rfGVufDB8fDB8fHww");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+}
+.form {
+  width: 35%;
+  height: 65vh;
+  border: 1px solid silver;
+  border-radius: 15px;
+}
+.wrapperForm {
+  padding: 10px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.select {
+  width: 100%;
+  padding: 10px 5px;
+  border: 1px solid silver;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.title {
+  padding: 0px 19px;
+}
+
+.arrow {
+  height: 16;
+  width: 50;
+}
+.arrowDown {
+  height: 16;
+  width: 50;
+  transform: rotate(90deg);
+}
+
+.listFilial {
+  width: 100%;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.btn {
+    border: none;
+    padding: 10px 120px;
+    border-radius: 10px;
+    background-color: blueviolet;
+    color: #ffff;
+    cursor: pointer;
+}
