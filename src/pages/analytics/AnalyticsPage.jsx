@@ -2,8 +2,35 @@
 
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Подключаем стили Bootstrap
-import { Line } from 'react-chartjs-2';
+import { format, addHours } from 'date-fns';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    RadialLinearScale,
+    ArcElement,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+} from 'chart.js';
+import {Bar, Line, PolarArea} from 'react-chartjs-2';
 
+
+ChartJS.register(
+    CategoryScale,
+    RadialLinearScale,
+    ArcElement,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    BarElement
+);
 const AnalyticsPage = () => {
     const [dropdownData, setDropdownData] = useState([]);
     const [selectedId, setSelectedId] = useState('');
@@ -35,22 +62,73 @@ const AnalyticsPage = () => {
         setSelectedId(event.target.value);
     };
 
-    const handleAnalyticsButtonClick = () => {
+    const handleAnalyticsButtonClick = async () => {
         console.log('Выбран id:', selectedId);
         console.log('Аналитика выполнена для даты:', selectedDate);
+        try {
+            const response = await fetch('http://ваш_сервер/ваш_ресурс', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    selectedId,
+                    selectedDate,
+                }),
+            });
+
+            if (response.ok) {
+                console.log('Данные успешно отправлены!');
+                // Дополнительные действия при успешной отправке
+            } else {
+                console.error('Ошибка при отправке данных:', response.status);
+                // Дополнительные действия при ошибке
+            }
+        } catch (error) {
+            console.error('Ошибка при выполнении POST-запроса:', error);
+        }
     };
+    const generateTimeLabels = () => {
+        const startDate = new Date();
+        startDate.setHours(8, 0, 0, 0);
+
+        const labels = Array.from({ length: 13 }, (_, index) => {
+            const date = addHours(startDate, index);
+            return format(date, 'HH:mm');
+        });
+
+        return labels;
+    };
+
     const data = {
-        labels: ['Янв', 'Фев', 'Мар', 'Апр', 'Май', 'Июн'],
+        labels: generateTimeLabels(),
         datasets: [
             {
-                label: 'Пример данных',
-                data: [12, 19, 3, 5, 2, 3],
+                label: 'Completed',
+                data: [12, 19, 3, 5, 2, 3, 8, 10, 15, 12, 7, 5, 3], // Замените данные на ваши реальные данные
                 fill: false,
                 borderColor: 'rgba(75,192,192,1)',
             },
+            {
+                label: 'NotUsed',
+                data: [12, 4, 3, 5, 2, 6, 2, 1, 22, 32, 3, 1, 2], // Замените данные на ваши реальные данные
+                fill: false,
+                borderColor: 'rgba(43,54,35,23,2)',
+            },
         ],
     };
-
+    const options = {
+        responsive: true,
+        plugins: {
+            legend: {
+                position: 'top'
+            },
+            title: {
+                display: true,
+                text: 'Chart.js Bar Chart',
+            },
+        },
+    };
     return (
         <div>
             <nav className="navbar navbar-light bg-light">
@@ -99,8 +177,24 @@ const AnalyticsPage = () => {
                     </div>
                 </div>
             </div>
+
             <div className={"container mt-4"}>
-                <Line data={data} />;
+                <div className="row">
+                    <div className="col">
+                        <Line data={data} />
+                    </div>
+                    <div className="col">
+                        <Line data={data} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="col">
+                        <PolarArea data={data} />;
+                    </div>
+                    <div className="col">
+                        <Bar options={options} data={data}/>
+                    </div>
+                </div>
             </div>
         </div>
     );
