@@ -1,0 +1,29 @@
+
+.select {
+    width: 100%;
+    padding: 10px 5px;
+    border: 1px solid silver;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+  }
+  .title {
+    padding: 0px 19px;
+  }
+
+  .listFilial {
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .arrow {
+    height: 16;
+    width: 50;
+  }
+  .arrowDown {
+    height: 16;
+    width: 50;
+    transform: rotate(90deg);
+  }

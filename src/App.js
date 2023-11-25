@@ -6,6 +6,7 @@ import HomePage from "./pages/home/HomePage";
 import PublicRout from "./routes/PublicRout";
 import PrivateRout from "./routes/PrivateRoute";
 import AnalyticsPage from "./pages/analytics/AnalyticsPage";
+import SimulationBank from "./pages/simulationBank/SimulationBank";
 
 const App = () => {
   return (
@@ -27,6 +28,14 @@ const App = () => {
                   // </PublicRout>
               }
           />
+          <Route
+          path="/simulation"
+          element={
+            // <PublicRout>
+              <SimulationBank />
+            // </PublicRout>
+          }
+        />
       </Routes>
     </>
   );
